@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!-- Defines the logging (format and output) to the console(System.out)
+	     All non application specific logging (WAS, Apache) is directed to the console	-->
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<!--  <param name="ConversionPattern" value="%5p [%t] {%x} (%F:%L) - %m%n"/> -->
+			<param name="ConversionPattern" value="%5p [%t] (%F:%L) - %m%n"/>
+		</layout>
+	</appender>
+	<!-- Defines the debug logging (format and output) for the application.
+		 The log file path and name are defined in the 'File" parameter.
+		 No other parameters should be changed part of a configuration adjustment	-->
+	<appender name="FILE.DEBUG" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="Logs/ITACLog.log"/>
+		<param name="Append" value="true"/>
+		<param name="ImmediateFlush" value="true"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<!-- <param name="ConversionPattern" value="%d %5p [%t] {%x} (%F:%L) - %m%n"/>  -->
+			<param name="ConversionPattern" value="%d %5p [%t] (%F:%L) - %m%n"/>
+		</layout>
+	</appender>
+	
+	<appender name="FILE.INFO" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="Logs/EventLog.log"/>
+		<param name="Append" value="false"/>
+		<param name="ImmediateFlush" value="true"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" value="%d %5p [%t] {%x} (%F:%L) - %m%n"/>
+		</layout>
+	</appender>
+	
+	<!-- Defines the debug logging (format and output) for the application.
+		 The log file path and name are defined in the 'File" parameter.
+		 No other parameters should be changed part of a configuration adjustment	-->
+	<appender name="FILE.REJECT" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/one.log"/>
+		<param name="Append" value="true"/>
+		<param name="ImmediateFlush" value="true"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %m%n"/>
+		</layout>
+	</appender>	
+	
+	<!-- Logging for all the classes that are not application specific (WAS, Apache).
+	     Logging levels are DEBUG<INFO<WARN<ERROR<FATAL.
+	     Set to appropriate level depending on the amount of information desired. -->
+	<root>
+		<level value="INFO"/>
+		<appender-ref ref="CONSOLE"/>
+		<!-- 
+		<appender-ref ref="FILE.DEBUG"/>
+		-->
+		<appender-ref ref="FILE.INFO"/>
+		
+	</root>
+</log4j:configuration>
